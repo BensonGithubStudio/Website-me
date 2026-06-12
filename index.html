@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="javaScript/index.js" defer></script>
+    <script src="javaScript/particleBackground.js" defer></script>
+    <title>BENSON | Portfolio</title>
+</head>
+<body>
+
+    <!-- 背景 Canvas 粒子系統 -->
+    <canvas id="bg"></canvas>
+
+    <!-- 導覽列 -->
+    <nav class="navbar">
+        <div class="logo">BENSON</div>
+        <div class="nav-links">
+            <a href="#about">個人檔案</a>
+            <a href="#projects">開發專案</a>
+            <a href="#skills">專業技能</a>
+            <a href="#contact">聯絡我</a>
+        </div>
+    </nav>
+
+    <!-- Hero 首頁區塊 -->
+    <header class="hero">
+        <div id="bootText">INITIALIZING MEMORY...</div>
+        <h1 id="name">BENSON</h1>
+        <p id="heroTitle">Game Developer & Programmer</p>
+        <a href="#about" id="exploreBtn">關於我</a>
+    </header>
+
+    <!-- 主體內容 -->
+    <main class="container">
+        
+        <!-- 【更新】關於我、照片與經歷 Profile & Experience -->
+        <section id="about" class="section">
+            <h2 class="section-title">SYSTEM.USER_PROFILE</h2>
+            
+            <div class="profile-grid">
+                <!-- 左側：個人相片框 -->
+                <div class="profile-photo-wrapper">
+                    <div class="profile-photo-frame">
+                        <!-- 請將下面的 src 替換成你的真實照片路徑，例如 "images/avatar.jpg" -->
+                        <img src="image/me.webp" alt="Benson" class="profile-img">
+                        <div class="scanline"></div>
+                        <div class="frame-glitch-text">STATUS: ONLINE</div>
+                    </div>
+                </div>
+
+                <!-- 右側：個人經歷 -->
+                <div class="profile-info-panel">
+                    <div class="bio-intro">
+                        <h3>賴彥丞 / 熱愛程式設計</h3>
+
+                        <p class="cyber-tagline">"所有的勝利，與征服自己的勝利比起來，都是微不足道"</p>
+                        <p class="cyber-tagline">"所有的失敗，與失去自己的失敗比起來，更是微不足道"</p>
+
+                        <p>我是一位熱愛程式設計和網頁開發的大學生，目前具備基礎程式設計能力，對於C、Ｃ++、網頁設計及遊戲開發，均有接觸且積極投入學習和實踐。</p>
+                    </div>
+
+                    <!-- 經歷時間軸 -->
+                        <div class="timeline-item">
+                            <div class="timeline-date">2026.06</div>
+                            <div class="timeline-content">
+                                <h5>畢業專題&nbsp;榮獲院長獎</h5>
+                                <p>四年期間所製作的畢業專題，經評審老師們評估，榮獲系上第一名</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">2026.03&nbsp;-&nbsp;2026.06</div>
+                            <div class="timeline-content">
+                                <h5>擔任逢甲大學&nbsp;講師</h5>
+                                <p>在老師推薦下，到逢甲大學擔任電子系二年級「階程C#式設計」課程講師</p>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">2022.09&nbsp;-&nbsp;2026.06</div>
+                            <div class="timeline-content">
+                                <h5>臺中教育大學&nbsp;數位內容科技學系</h5>
+                                <p>學習程式設計、遊戲設計、電腦動畫、電腦繪圖、3D模型</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 作品集 Projects -->
+        <section id="projects" class="section">
+            <h2 class="section-title">CORE.PROJECTS</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">[PROJECT_01_THUMB]</div>
+                    <div class="project-info">
+                        <h3>賽博脈衝 CyberPulse</h3>
+                        <p>一款使用 Unity 開發的高流速動作遊戲。負責核心戰鬥系統與粒子特效優化。</p>
+                        <span class="tag">Unity</span> <span class="tag">C#</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">[PROJECT_02_THUMB]</div>
+                    <div class="project-info">
+                        <h3>未知維度 Unknown Dimension</h3>
+                        <p>獨立開發的獨立解謎遊戲，利用重力反轉機制創造出獨特的空間謎題。</p>
+                        <span class="tag">Unreal Engine</span> <span class="tag">C++</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 【更新】專長與核心技能核心區塊 -->
+        <section id="skills" class="section">
+            <h2 class="section-title">MODULE.CORE_COMPETENCIES</h2>
+            
+            <div class="skills-showcase">
+                <!-- 左邊：核心專長能量條 -->
+                <div class="skills-bars-container">
+                    <h4 class="sub-panel-title">核心技術熟練度</h4>
+                    
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-bar-label"><span>Unity & C#</span><span>90%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 90%;"></div></div>
+                    </div>
+
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-bar-label"><span>Unreal Engine & C++</span><span>75%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 75%;"></div></div>
+                    </div>
+
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-bar-label"><span>Gameplay Programming</span><span>85%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 85%;"></div></div>
+                    </div>
+
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-bar-label"><span>Shader & Visual Effects (GLSL)</span><span>70%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 70%;"></div></div>
+                    </div>
+                </div>
+
+                <!-- 右邊：技能分類卡片 -->
+                <div class="skills-grid-layout">
+                    <div class="skill-group-card">
+                        <h3>遊戲研發專長</h3>
+                        <p>人工智慧（AI）行為樹導航、物理碰撞系統特化、狀態機架構設計、效能剖析與優化（Profiling）。</p>
+                    </div>
+                    <div class="skill-group-card">
+                        <h3>網頁與擴充工具</h3>
+                        <p>HTML5 Canvas 特效控制、Node.js 伺服器通訊、專案自動化建置（CI/CD）腳本編寫。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 聯絡我 Contact -->
+        <section id="contact" class="section">
+            <h2 class="section-title">ESTABLISH.CONNECTION</h2>
+            <div class="panel text-center">
+                <p class="margin-bottom">準備好一起啟動新的專案了嗎？歡迎透過以下管道與我聯繫：</p>
+                <a href="mailto:your-email@example.com" class="cyber-btn">SEND_SIGNAL (Email)</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 BENSON. ALL RIGHTS RESERVED. DATA_STATUS: SECURE.</p>
+    </footer>
+
+</body>
+</html>

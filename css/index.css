@@ -1,0 +1,528 @@
+/* 基礎重設與變數 */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #050505;
+    color: white;
+    font-family: 'Courier New', Arial, sans-serif;
+    overflow-x: hidden;
+    position: relative;
+}
+
+#bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 導覽列 */
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    z-index: 100;
+    background: rgba(5, 5, 5, 0.7);
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.navbar .logo {
+    color: #00ffff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+.navbar .nav-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.navbar .nav-links a:hover {
+    color: #00ffff;
+    text-shadow: 0 0 8px #00ffff;
+}
+
+/* Hero 首頁區塊 */
+.hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+#bootText {
+    color: #00ffff;
+    letter-spacing: 4px;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+#name {
+    /* 使用 clamp 讓字體在大螢幕最大 7rem，手機螢幕自動縮小，絕不爆版 */
+    font-size: clamp(3rem, 10vw, 7rem);
+    opacity: 0;
+    text-shadow:
+    0 0 10px #00ffff,
+    0 0 30px #00ffff,
+    0 0 60px #00ffff;
+}
+
+#heroTitle {
+    opacity: 0;
+    margin-top: 20px;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    letter-spacing: 2px;
+    color: #888;
+}
+
+#exploreBtn {
+    opacity: 0;
+    display: inline-block;
+    margin-top: 40px;
+    padding: 15px 40px;
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: 0.3s ease;
+}
+
+#exploreBtn:hover {
+    background: rgba(0, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+}
+
+/* 主要內容容器 */
+.container {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* 區塊通用樣式 */
+.section {
+    padding: 100px 0;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-title {
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    color: #00ffff;
+    margin-bottom: 40px;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    border-left: 4px solid #00ffff;
+    padding-left: 15px;
+}
+
+.sub-panel-title {
+    color: #00ffff;
+    font-size: 1.1rem;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+    border-bottom: 1px dashed rgba(0, 255, 255, 0.3);
+    padding-bottom: 8px;
+}
+
+/* =========================================
+   【個人檔案版面】照片與經歷區塊
+   ========================================= */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 50px;
+    align-items: start;
+}
+
+.profile-photo-wrapper {
+    width: 100%;
+}
+
+.profile-photo-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border: 1px solid #00ffff;
+    padding: 10px;
+    background: rgba(0, 255, 255, 0.02);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.profile-photo-frame::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 15px; height: 15px;
+    border-top: 3px solid #00ffff; border-left: 3px solid #00ffff;
+}
+
+.profile-photo-frame::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0; width: 15px; height: 15px;
+    border-bottom: 3px solid #00ffff; border-right: 3px solid #00ffff;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(40%) contrast(110%);
+    opacity: 1;
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.scanline {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 4px;
+    background: linear-gradient(to bottom, transparent, #00ffff, transparent);
+    opacity: 0.6;
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes scan {
+    0% { top: 0%; }
+    100% { top: 100%; }
+}
+
+.frame-glitch-text {
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+    font-size: 0.75rem;
+    color: #00ffff;
+    letter-spacing: 2px;
+    background: rgba(5, 5, 5, 0.8);
+    padding: 2px 8px;
+    border: 1px solid rgba(0, 255, 255, 0.4);
+}
+
+.profile-info-panel .bio-intro h3 {
+    font-size: 1.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+}
+
+.profile-info-panel .bio-intro p {
+    color: #ccc;
+    line-height: 1.7;
+    margin-top: 35px;
+    margin-bottom: 30px;
+}
+
+.profile-info-panel .bio-intro p.cyber-tagline {
+    color: #888888f1;
+    font-style: italic;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+}
+
+/* 工作/學經歷時間軸 */
+.experience-timeline {
+    margin-top: 20px;
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 30px;
+    border-left: 1px solid rgba(0, 255, 255, 0.3);
+    padding-bottom: 25px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 5px;
+    width: 9px;
+    height: 9px;
+    background: #00ffff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ffff;
+}
+
+.timeline-date {
+    font-size: 0.8rem;
+    color: #00ffff;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+}
+
+.timeline-content h5 {
+    font-size: 1.05rem;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.timeline-content p {
+    font-size: 0.9rem;
+    color: #aaa;
+    line-height: 1.5;
+}
+
+/* =========================================
+   【專長展示版面】能量進度條
+   ========================================= */
+.skills-showcase {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.skills-bars-container {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 30px;
+}
+
+.skill-bar-wrapper {
+    margin-bottom: 22px;
+}
+
+.skill-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.skill-bar-bg {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 255, 0.1);
+}
+
+.skill-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0,255,255,0.4), #00ffff);
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    border-radius: 2px;
+}
+
+.skills-grid-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.skill-group-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    border-left: 3px solid #00ffff;
+    padding: 25px;
+    border-radius: 0 4px 4px 0;
+}
+
+.skill-group-card h3 {
+    color: #fff;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.skill-group-card p {
+    color: #aaa;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* =========================================
+   作品集與其他通用區塊
+   ========================================= */
+.panel {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 40px;
+    border-radius: 4px;
+    line-height: 1.8;
+    color: #ccc;
+}
+
+.panel p { margin-bottom: 15px; }
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.project-card:hover {
+    border-color: #00ffff;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.1);
+}
+
+.project-img {
+    height: 180px;
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #444;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-info { padding: 25px; }
+.project-info h3 { color: #fff; margin-bottom: 10px; font-size: 1.3rem; }
+.project-info p { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
+
+.tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    background: rgba(0, 255, 255, 0.1);
+    color: #00ffff;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    margin-right: 5px;
+    border-radius: 2px;
+}
+
+.cyber-btn {
+    display: inline-block;
+    padding: 15px 30px;
+    border: 1px solid #00ffff;
+    color: #00ffff;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: 0.3s;
+    background: transparent;
+}
+
+.cyber-btn:hover {
+    background: #00ffff;
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 0 15px #00ffff;
+}
+
+.text-center { text-align: center; }
+.margin-bottom { margin-bottom: 25px; }
+
+.footer {
+    text-align: center;
+    padding: 40px;
+    font-size: 0.8rem;
+    color: #444;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+
+/* =========================================
+   【新 RWD 響應式佈局深度優化】
+   ========================================= */
+
+/* 1. 平板與小桌機佈局 (1024px 以下) */
+@media (max-width: 1024px) {
+    .navbar {
+        padding: 20px 30px;
+    }
+    .profile-grid {
+        grid-template-columns: 280px 1fr;
+        gap: 35px;
+    }
+}
+
+/* 2. 大行動裝置與中平板佈局 (900px 以下) */
+@media (max-width: 900px) {
+    .section {
+        padding: 60px 0; /* 縮小過大的上下間距，提升滑動體驗 */
+    }
+    .profile-grid {
+        grid-template-columns: 1fr; /* 轉為單欄 */
+        gap: 40px;
+    }
+    .profile-photo-frame {
+        max-width: 300px; /* 相片在手機上置中放大 */
+        margin: 0 auto;
+    }
+    .skills-showcase {
+        grid-template-columns: 1fr; /* 技能區轉為單欄 */
+        gap: 30px;
+    }
+}
+
+/* 3. 標準智慧型手機佈局 (768px 以下) */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+    .navbar .nav-links {
+        display: none; /* 行動版隱藏桌面選單，後續可自行擴充漢堡選單 */
+    }
+    .panel {
+        padding: 30px 20px; /* 縮減內距，把寬度留給內容 */
+    }
+    .skill-bars-container {
+        padding: 20px;
+    }
+}
+
+/* 4. 超小手機螢幕特化優化 (480px 以下) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 15px; /* 邊緣微縮 */
+    }
+    .section {
+        padding: 45px 0;
+    }
+    .profile-info-panel .bio-intro h3 {
+        font-size: 1.4rem; /* 縮小姓名 */
+    }
+    .timeline-item {
+        padding-left: 20px; /* 縮減時間軸左側留白 */
+    }
+    .skill-group-card {
+        padding: 20px 15px;
+    }
+    .project-info {
+        padding: 20px 15px;
+    }
+    .cyber-btn {
+        width: 100%; /* 按鈕在小手機上改為滿版，更好點擊 */
+        text-align: center;
+        padding: 12px 20px;
+    }
+}
