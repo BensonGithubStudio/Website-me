@@ -1,3 +1,48 @@
+/* =========================================
+   滾動條
+   ========================================= */
+
+::-webkit-scrollbar {
+    width: 6px;               /* 讓滾動條變得極細，不破壞整體畫面美感 */
+    background: #050505;      /* 軌道背景色，與你的網頁純黑背景融為一體 */
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 255, 255, 0.3); /* 初始狀態為半透明的青色，低調精緻 */
+    border-radius: 10px;               /* 邊角圓潤化 */
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.4); /* 帶有微弱的發光特效 */
+    transition: background 0.3s ease;  /* 讓顏色轉變更絲滑 */
+}
+
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+    background: #00ffff;               /* 亮青色全開，充能效果 */
+    box-shadow: 
+        0 0 12px #006868,
+        0 0 20px #006868;              /* 增強霓虹發光矩陣，視覺張力拉滿 */
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+/* =========================================
+   選取風格 (Selection)
+   ========================================= */
+
+/* 電腦版現代瀏覽器（Chrome, Edge, Safari, Opera） */
+::selection {
+    background-color: #00bdbd; /* 賽博霓虹青色 (Cyber Cyan) */
+    color: #050505;            /* 文字變成深黑色 */
+    text-shadow: none;
+}
+
+::-moz-selection {
+    background-color: #00ffff;
+    color: #050505;
+    text-shadow: none;
+}
+
 /* 基礎重設與變數 */
 *{
     margin: 0;
@@ -12,6 +57,18 @@ body {
     font-family: 'Courier New', Arial, sans-serif;
     overflow-x: hidden;
     position: relative;
+}
+
+body.system-loading {
+    overflow: hidden !important;       /* 完全禁止視窗上下滾動 */
+    pointer-events: none !important;   /* 阻斷所有點擊、選取、 hovered 效果 */
+    cursor: wait !important;           /* 滑鼠指針變成等待狀態（選用） */
+}
+
+/* 額外優化：讓初始化的提示字，在解鎖時變成綠色或維持亮藍色，更有成功解鎖的儀式感 */
+body:not(.system-loading) #bootText {
+    color: #39ff14; /* 變成綠色（可不加，依你喜好） */
+    text-shadow: 0 0 10px #39ff14;
 }
 
 #bg {

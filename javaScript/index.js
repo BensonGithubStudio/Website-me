@@ -15,6 +15,9 @@ setInterval(() => {
 
 // === 2. 入場動畫序列 (Web Animations API) ===
 setTimeout(() => {
+    // 一開始確保鎖定 (保險起見也可以在 JS 開頭加，但直接寫在 CSS 最安全)
+    document.body.classList.add("system-loading");
+
     // 名字淡入
     document.getElementById("name").animate(
         [{ opacity: 0 }, { opacity: 1 }],
@@ -37,4 +40,12 @@ setTimeout(() => {
         );
     }, 1500);
 
-}, 2000); // 縮短一點點初始等待時間，讓使用者體驗更流暢
+    // === 【新增】當 Explore 按鈕完全淡入完成後，解鎖網頁操作權限 ===
+    // 1500ms (開始淡入的時間) + 1000ms (淡入動畫本身的長度) = 2500ms 後解鎖
+    setTimeout(() => {
+        document.body.classList.remove("system-loading");
+        // 可自由加入酷炫文字提示，例如把系統初始化文字改掉
+        boot.innerText = "SYSTEM_READY. ACCESS_GRANTED.";
+    }, 2500);
+
+}, 1000);
