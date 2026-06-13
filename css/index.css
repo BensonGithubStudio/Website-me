@@ -318,7 +318,9 @@ body:not(.system-loading) #bootText {
     font-size: 0.95rem;
 }
 
-/* 工作/學經歷時間軸 */
+/* =========================================
+   工作/學經歷時間軸
+   ========================================= */
 .experience-timeline {
     margin-top: 20px;
 }
@@ -349,6 +351,13 @@ body:not(.system-loading) #bootText {
     font-weight: bold;
     letter-spacing: 1px;
     margin-bottom: 5px;
+}
+
+.timeline-month {
+    font-size: 1.15rem;
+    color: #00ffff;
+    font-weight: bold;
+    margin-left: 1px;
 }
 
 .timeline-content h5 {
@@ -647,6 +656,7 @@ body:not(.system-loading) #bootText {
     }
     .timeline-item {
         padding-left: 20px; /* 縮減時間軸左側留白 */
+        margin-bottom: 20px;
     }
     .skill-group-card {
         padding: 20px 15px;
