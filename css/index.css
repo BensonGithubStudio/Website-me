@@ -225,10 +225,17 @@ body:not(.system-loading) #bootText {
     width: 100%;
     aspect-ratio: 4 / 5;
     border: 1px solid #00ffff;
-    padding: 10px;
+    
+    /* 【關鍵修改 1】拔掉原本的 padding: 10px，防止內邊距把圖片推歪 */
+    padding: 0; 
+    
     background: rgba(0, 255, 255, 0.02);
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
     overflow: hidden;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .profile-photo-frame::before {
@@ -236,6 +243,7 @@ body:not(.system-loading) #bootText {
     position: absolute;
     top: 0; left: 0; width: 15px; height: 15px;
     border-top: 3px solid #00ffff; border-left: 3px solid #00ffff;
+    z-index: 5; /* 確保邊角蓋在圖片上方 */
 }
 
 .profile-photo-frame::after {
@@ -243,15 +251,23 @@ body:not(.system-loading) #bootText {
     position: absolute;
     bottom: 0; right: 0; width: 15px; height: 15px;
     border-bottom: 3px solid #00ffff; border-right: 3px solid #00ffff;
+    z-index: 5; /* 確保邊角蓋在圖片上方 */
 }
 
 .profile-img {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: calc(100% - 20px);  /* 扣除左右各 10px 的空間 */
+    height: calc(100% - 20px); /* 扣除上下各 10px 的空間 */
+    
     object-fit: cover;
+    object-position: center; /* 強迫瀏覽器以正中央為軸心向外縮放裁剪 */
+    
     filter: none;
     opacity: 1;
     border: 1px solid rgba(0, 255, 255, 0.2);
+    z-index: 1;
 }
 
 .scanline {
@@ -261,6 +277,7 @@ body:not(.system-loading) #bootText {
     opacity: 0.6;
     animation: scan 4s linear infinite;
     pointer-events: none;
+    z-index: 3; /* 確保掃描線能在照片上方跑動 */
 }
 
 @keyframes scan {
@@ -431,28 +448,38 @@ body:not(.system-loading) #bootText {
 
 .panel p { margin-bottom: 15px; }
 
+/* =========================================
+   專案區
+   ========================================= */
+
 .projects-grid {
     display: grid;
+    /* RWD 自動網格排列 */
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
 }
 
 .project-card {
-    background: rgba(255, 255, 255, 0.01);
+    background: rgba(255, 255, 255, 0.02); /* 稍微提升一點點亮度，黑客質感更好 */
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 4px;
-    overflow: hidden;
-    transition: 0.3s;
+    overflow: hidden; /* 確保圖片放大時不會超出卡片邊框 */
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* 【關鍵修正 1】改為 Flex 垂直佈局，強迫圖片區與文字區絕對分流，永不重疊 */
+    display: flex;
+    flex-direction: column;
 }
 
 .project-card:hover {
     border-color: #00ffff;
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.15);
 }
 
 .project-img {
-    height: 180px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
     background: #111;
     display: flex;
     justify-content: center;
@@ -461,11 +488,47 @@ body:not(.system-loading) #bootText {
     font-size: 0.8rem;
     letter-spacing: 2px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    
+    /* 【關鍵修正 2】確保容器本身不會被裡面的巨大圖片塞變形 */
+    position: relative;
+    overflow: hidden; 
+    flex-shrink: 0; /* 防止卡片被內容壓縮時，圖片高度被擠扁 */
 }
 
-.project-info { padding: 25px; }
-.project-info h3 { color: #fff; margin-bottom: 10px; font-size: 1.3rem; }
-.project-info p { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5; }
+.p-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 確保影片不管原比例是 16:9 還是 4:3，都能自動裁切並完美填滿正方形，絕不變形拉伸 */
+    object-position: center; /* 影片居中對齊 */
+    
+    /* 賽博朋克暗色調微濾鏡 */
+    filter: grayscale(0%) brightness(0.9) contrast(110%);
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.project-card:hover .p-media {
+    transform: scale(1.06);
+    filter: grayscale(0%) brightness(1.1) contrast(115%);
+}
+
+.project-info { 
+    padding: 25px; 
+    /* 讓文字區自動填滿剩餘空間，排版更整齊 */
+    flex-grow: 1; 
+}
+
+.project-info h3 { 
+    color: #fff; 
+    margin-bottom: 10px; 
+    font-size: 1.3rem; 
+}
+
+.project-info p { 
+    color: #aaa; 
+    font-size: 0.9rem; 
+    margin-bottom: 20px; 
+    line-height: 1.5; 
+}
 
 .tag {
     display: inline-block;
