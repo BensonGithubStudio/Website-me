@@ -393,18 +393,21 @@ body:not(.system-loading) #bootText {
 
 .skill-bar-bg {
     width: 100%;
-    height: 8px;
+    height: 12px;
     background: rgba(255, 255, 255, 0.05);
-    border-radius: 2px;
-    overflow: hidden;
     border: 1px solid rgba(0, 255, 255, 0.1);
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+    position: relative;
 }
 
 .skill-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, rgba(0,255,255,0.4), #00ffff);
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.6), #00ffff); /* 青色漸層霓虹 */
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-    border-radius: 2px;
+    width: 0%; 
+    transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .skills-grid-layout {
