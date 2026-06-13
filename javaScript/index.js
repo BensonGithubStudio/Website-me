@@ -1,3 +1,9 @@
+// === 強制網頁載入與重新整理時一律回歸最頂端 ===
+if (history.scrollRestoration) {
+    history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
 // === 1. 雜訊打字機效果 (維持不變) ===
 const boot = document.getElementById("bootText");
 const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
