@@ -481,12 +481,22 @@ body:not(.system-loading) #bootText {
     /* 【關鍵修正 1】改為 Flex 垂直佈局，強迫圖片區與文字區絕對分流，永不重疊 */
     display: flex;
     flex-direction: column;
+
+    text-decoration: none !important;
+    text-decoration-line: none !important;
+    outline: none;
 }
 
 .project-card:hover {
     border-color: #00ffff;
     transform: translateY(-5px);
     box-shadow: 0 5px 20px rgba(0, 255, 255, 0.15);
+}
+
+.project-card,
+.project-card * {
+    text-decoration: none !important;
+    text-decoration-line: none !important;
 }
 
 .project-img {
@@ -531,7 +541,7 @@ body:not(.system-loading) #bootText {
 
 .project-info h3 { 
     color: #fff; 
-    margin-bottom: 10px; 
+    margin-bottom: 20px; 
     font-size: 1.3rem; 
 }
 
@@ -539,7 +549,8 @@ body:not(.system-loading) #bootText {
     color: #aaa; 
     font-size: 0.9rem; 
     margin-bottom: 20px; 
-    line-height: 1.5; 
+    letter-spacing: 0.9px;
+    line-height: 1.7; 
 }
 
 .tag {
@@ -549,6 +560,7 @@ body:not(.system-loading) #bootText {
     background: rgba(0, 255, 255, 0.1);
     color: #00ffff;
     border: 1px solid rgba(0, 255, 255, 0.3);
+    margin-top: 15px;
     margin-right: 5px;
     border-radius: 2px;
 }
