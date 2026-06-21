@@ -548,6 +548,7 @@ body:not(.system-loading) #bootText {
 .project-info p { 
     color: #aaa; 
     font-size: 0.9rem; 
+    text-align: justify;
     margin-bottom: 20px; 
     letter-spacing: 0.9px;
     line-height: 1.7; 

@@ -4,7 +4,7 @@ const ctx = canvas.getContext("2d");
 const particles = [];
 
 // === 【核心優化 1】根據螢幕寬度動態決定粒子數量 ===
-const particleCount = window.innerWidth < 768 ? 45 : 120;
+const particleCount = window.innerWidth < 768 ? 40 : 90;
 
 // === 【核心優化 2】視網膜螢幕高解析度處理 (Fix Blur) ===
 function resizeCanvas() {
