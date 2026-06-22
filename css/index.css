@@ -584,7 +584,26 @@ body:not(.system-loading) #bootText {
     box-shadow: 0 0 15px #00ffff;
 }
 
+/* 電腦版預設：將按鈕放置在 section 的右下角 */
+#about {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* 恢復預設：讓內元件（如網格）自然撐滿 */
+}
 
+/* 2. 按鈕專屬外殼：利用 margin-left: auto 單獨將自己推向最右側！ */
+.cyber-btn-more {
+    display: inline-flex;  
+    margin-top: 40px;
+    margin-left: auto;     /* 關鍵：神奇的魔法！自動把左邊塞滿，將自己推到最右邊 */
+    text-decoration: none !important;
+}
+
+.cyber-btn-more .cyber-btn {
+    padding: 12px 28px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
 
 .text-center { text-align: center; }
 .margin-bottom { margin-bottom: 25px; }
@@ -630,6 +649,12 @@ body:not(.system-loading) #bootText {
         grid-template-columns: 1fr; /* 技能區轉為單欄 */
         gap: 30px;
     }
+
+    .cyber-btn-more {
+        margin-left: auto;  /* 這兩行結合，能在 Flex 佈局中實現完美的水平置中 */
+        margin-right: auto; 
+        margin-top: 30px;
+    }
 }
 
 /* 3. 標準智慧型手機佈局 (768px 以下) */
@@ -647,12 +672,67 @@ body:not(.system-loading) #bootText {
         padding: 20px;
     }
 
+    /* 將網格改為單欄，並縮小元件間距 */
+    .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    /* 照片區塊優化：限制手機上的最大寬度，並置中顯示 */
+    .profile-photo-wrapper {
+        max-width: 240px; /* 從 320px 縮小到 240px，省下垂直空間 */
+        margin: 0 auto;   /* 置中 */
+    }
+
+    .profile-photo-frame {
+        aspect-ratio: 1 / 1; /* 手機版改為完美正方形，更像科技頭像 */
+    }
+
+    /* 消滅手機版巨大的空白黑洞 */
+    .profile-info-panel .bio-intro h3 {
+        text-align: center; /* 名字置中 */
+        font-size: 1.5rem;
+    }
+
+    .profile-info-panel .bio-intro p.cyber-tagline {
+        text-align: center; /* 格言置中 */
+        font-size: 0.85rem;
+    }
+
+    .profile-info-panel .bio-intro p {
+        margin-top: 20px;    /* 從 50px 縮減到 20px */
+        margin-bottom: 30px; /* 從 70px 縮減到 30px */
+        font-size: 0.9rem;
+        text-align: justify;
+    }
+
+    /* 時間軸重構：改為手機特化排版 */
+    .timeline-item {
+        padding-left: 20px;   /* 縮減左側留白 */
+        padding-bottom: 20px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column; /* 強制時間標籤自成一行，排在標題上方 */
+    }
+
+    .timeline-item::before {
+        top: 6px; /* 微調發光小圓點的位置 */
+    }
+
+    .timeline-date {
+        display: inline-block;
+        margin-bottom: 4px;   /* 讓日期在標題上面貼近 */
+        font-size: 0.75rem;
+    }
+
     .timeline-content h5 {
-        font-size: 1.15rem;
+        font-size: 1rem;      /* 稍微縮小標題字體，防止手機上溢出 */
+        line-height: 1.4;
     }
 
     .timeline-content p {
-        font-size: 1rem;
+        font-size: 0.85rem;   /* 稍微精簡內文字級 */
+        margin-top: 4px;
     }
 }
 
@@ -677,9 +757,9 @@ body:not(.system-loading) #bootText {
     .project-info {
         padding: 20px 15px;
     }
-    .cyber-btn {
-        width: 100%; /* 按鈕在小手機上改為滿版，更好點擊 */
-        text-align: center;
-        padding: 12px 20px;
+    .cyber-btn-more .cyber-btn {
+        width: auto !important; /* 確保不吃舊設定的 100% 滿版 */
+        padding: 12px 24px !important;
+        font-size: 0.85rem;
     }
 }
