@@ -20,13 +20,15 @@
     <canvas id="bg"></canvas>
 
     <!-- 導覽列 -->
-    <nav class="navbar">
-        <div class="logo">BENSON</div>
+    <nav class="navbar cyber-data-port">
+        <div class="logo">
+            <span class="logo-text">BENSON</span>
+            </div>
         <div class="nav-links">
-            <a href="#about">個人檔案</a>
-            <a href="#skills">專業技能</a>
-            <a href="#projects">開發專案</a>
-            <a href="#contact">聯絡我</a>
+            <a href="#about" data-no="01"><span>個人檔案</span></a>
+            <a href="#projects" data-no="02"><span>開發專案</span></a>
+            <a href="#skills" data-no="03"><span>專業技能</span></a>
+            <a href="#contact" data-no="04"><span>聯絡我</span></a>
         </div>
     </nav>
 
@@ -116,50 +118,6 @@
             </a>
         </section>
 
-        <!-- 【更新】專長與核心技能核心區塊 -->
-        <section id="skills" class="section">
-            <h2 class="section-title">專業技能</h2>
-            
-            <div class="skills-showcase">
-                <!-- 左邊：核心專長能量條 -->
-                <div class="skills-bars-container">
-                    <h4 class="sub-panel-title">技能熟練程度</h4>
-                    
-                    <div class="skill-bar-wrapper">
-                        <div class="skill-bar-label"><span>Unity&nbsp;&&nbsp;C#</span><span>90%</span></div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-progress="90%"></div></div>
-                    </div>
-
-                    <div class="skill-bar-wrapper">
-                        <div class="skill-bar-label"><span>電腦繪圖&nbsp;Adobe&nbsp;Illustrator</span><span>75%</span></div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-progress="75%"></div></div>
-                    </div>
-
-                    <div class="skill-bar-wrapper">
-                        <div class="skill-bar-label"><span>Gameplay Programming</span><span>85%</span></div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-progress="85%"></div></div>
-                    </div>
-
-                    <div class="skill-bar-wrapper">
-                        <div class="skill-bar-label"><span>Shader & Visual Effects (GLSL)</span><span>70%</span></div>
-                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-progress="70%"></div></div>
-                    </div>
-                </div>
-
-                <!-- 右邊：技能分類卡片 -->
-                <div class="skills-grid-layout">
-                    <div class="skill-group-card">
-                        <h3>遊戲研發專長</h3>
-                        <p>人工智慧（AI）行為樹導航、物理碰撞系統特化、狀態機架構設計、效能剖析與優化（Profiling）。</p>
-                    </div>
-                    <div class="skill-group-card">
-                        <h3>網頁與擴充工具</h3>
-                        <p>HTML5 Canvas 特效控制、Node.js 伺服器通訊、專案自動化建置（CI/CD）腳本編寫。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- 作品集 Projects -->
         <section id="projects" class="section">
             <h2 class="section-title">開發專案</h2>
@@ -217,6 +175,54 @@
                         <span class="tag">線上多人槍戰遊戲</span>
                     </div>
                 </a>
+            </div>
+
+            <a href="project.html" class="cyber-btn-more" onclick="sessionStorage.setItem('skipAnimation', 'true');">
+                <span class="cyber-btn">瀏覽完整作品</span>
+            </a>
+        </section>
+
+        <!-- 【更新】專長與核心技能核心區塊 -->
+        <section id="skills" class="section">
+            <h2 class="section-title">專業技能</h2>
+            
+            <div class="skills-showcase">
+                <!-- 左邊：核心專長能量條 -->
+                <div class="skills-bars-container">
+                    <h4 class="sub-panel-title">技能熟練程度</h4>
+                    
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-bar-label"><span>Unity&nbsp;&&nbsp;C#</span><span>90%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-progress="90%"></div></div>
+                    </div>
+
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-bar-label"><span>電腦繪圖&nbsp;Adobe&nbsp;Illustrator</span><span>75%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-progress="75%"></div></div>
+                    </div>
+
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-bar-label"><span>Gameplay Programming</span><span>85%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-progress="85%"></div></div>
+                    </div>
+
+                    <div class="skill-bar-wrapper">
+                        <div class="skill-bar-label"><span>Shader & Visual Effects (GLSL)</span><span>70%</span></div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" data-progress="70%"></div></div>
+                    </div>
+                </div>
+
+                <!-- 右邊：技能分類卡片 -->
+                <div class="skills-grid-layout">
+                    <div class="skill-group-card">
+                        <h3>遊戲研發專長</h3>
+                        <p>人工智慧（AI）行為樹導航、物理碰撞系統特化、狀態機架構設計、效能剖析與優化（Profiling）。</p>
+                    </div>
+                    <div class="skill-group-card">
+                        <h3>網頁與擴充工具</h3>
+                        <p>HTML5 Canvas 特效控制、Node.js 伺服器通訊、專案自動化建置（CI/CD）腳本編寫。</p>
+                    </div>
+                </div>
             </div>
         </section>
 

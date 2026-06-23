@@ -84,38 +84,157 @@ body:not(.system-loading) #bootText {
 /* 導覽列 */
 .navbar {
     position: fixed;
-    top: 0;
-    width: 100%;
+    top: 20px;          /* 懸浮於頂部 20px，不撐滿 */
+    left: 50%;
+    transform: translateX(-50%); /* 居中 */
+    width: calc(100% - 100px);   /* 寬度稍微收縮 */
+    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 50px;
+    padding: 12px 40px;
     z-index: 100;
-    background: rgba(5, 5, 5, 0.7);
-    backdrop-filter: blur(5px);
-    border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+    
+    /* 深黑色背景 + 強烈高斯模糊 */
+    background: rgba(51, 51, 51, 0.5);
+    backdrop-filter: blur(10px);
+    
+    /* 核心活潑幾何：斜切角外框 */
+    clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
+    
+    /* 青色環境光外框 */
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(0, 255, 255, 0.1); /* 微弱霓虹底光 */
 }
 
+/* 導覽列港口的霓虹霓虹環境光點綴偽元素 */
+.navbar::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #00ffff, transparent);
+    box-shadow: 0 0 10px #00ffff;
+}
+
+
+/* 2. Logo：發光處理器晶片 */
 .navbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: relative;
+    padding: 5px 10px;
+    border: 1px solid transparent;
+}
+
+.navbar .logo-text {
     color: #00ffff;
     font-weight: bold;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    text-shadow: 0 0 10px #00ffff;
+    font-size: 1.3rem;
+    letter-spacing: 3px;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0, 255, 255, 0.5);
+    font-family: 'Courier New', Courier, monospace; /* 數字感更強 */
+}
+
+/* Logo 偽元素：模擬電子故障發光矩陣 */
+.navbar .logo::before {
+    content: '0101';
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    font-size: 0.6rem;
+    color: rgba(0, 255, 255, 0.4);
+    opacity: 0.6;
+    font-family: monospace;
+    animation: cyber-digits-scan 2s steps(2) infinite;
+}
+
+@keyframes cyber-digits-scan {
+    0% { content: '1010'; }
+    50% { content: '0101'; }
+    100% { content: '1010'; }
+}
+
+
+/* 3. 連結：活潑的數據顯示器效果 */
+.navbar .nav-links {
+    display: flex;
+    gap: 15px; /* 縮小間距，讓幾何港口更緊湊 */
 }
 
 .navbar .nav-links a {
     color: #fff;
     text-decoration: none;
-    margin-left: 30px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     letter-spacing: 1px;
-    transition: 0.3s;
+    position: relative;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+    
+    /* 幾何連結外框 */
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
 }
 
+/* 連結內部：在文字上方加上數據編號 */
+.navbar .nav-links a::before {
+    content: attr(data-no);  /* 從 data-no 屬性讀取編號 */
+    position: absolute;
+    top: 1px;
+    left: 8px;
+    font-size: 0.65rem;
+    color: rgba(0, 255, 255, 0.4);
+    font-family: monospace;
+    transition: 0.3s ease;
+}
+
+.navbar .nav-links a span {
+    margin-top: 10px; /* 為上方的編號騰出空間 */
+}
+
+/* 你的原版特效：底部展開光軌 (維持不變，完美融合) */
+.navbar .nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 1.5px;
+    background: #00ffff;
+    box-shadow: 0 0 8px #00ffff, 0 0 15px #00ffff;
+    transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Hover 觸發活潑連鎖反應 */
 .navbar .nav-links a:hover {
     color: #00ffff;
-    text-shadow: 0 0 8px #00ffff;
+    background: rgba(0, 255, 255, 0.05); /* 輕微的港口通電背景色 */
+    clip-path: polygon(0% 0, 90% 0, 100% 100%, 10% 100%); /* 反向斜切，更有動感 */
+}
+
+/* Hover 時編號文字變成霓虹青色，並閃爍 */
+.navbar .nav-links a:hover::before {
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
+    animation: cyber-digits-spin 0.2s steps(2) infinite alternate;
+}
+
+/* 原版光軌展開動畫：維持 */
+.navbar .nav-links a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* 數字滾動動畫 */
+@keyframes cyber-digits-spin {
+    0% { transform: scaleY(1); opacity: 1; }
+    100% { transform: scaleY(0); opacity: 0.6; }
 }
 
 /* Hero 首頁區塊 */
