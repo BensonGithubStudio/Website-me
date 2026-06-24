@@ -1,76 +1,102 @@
-// === 【核心修改】檢查有沒有「從詳細經歷回來的跳過訊號」 ===
-const shouldSkipAnimation = sessionStorage.getItem("skipAnimation");
-
-const boot = document.getElementById("bootText");
-const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-if (shouldSkipAnimation === "true") {
-    // --------------------------------------------------
-    // 【快速通道】使用者是從完整經歷頁回來的！
-    // --------------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+    // =========================================
+    // 1. 手機版選單邏輯
+    // =========================================
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
     
-    // 【允許瀏覽器記憶滾動位置】不要強制 manual，讓瀏覽器自動滾回原本按鈕的位置
-    if (history.scrollRestoration) {
-        history.scrollRestoration = 'auto'; 
+    if (menuToggle && mobileMenu) {
+        const links = mobileMenu.querySelectorAll("a");
+
+        menuToggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            const isActive = menuToggle.classList.toggle("active");
+            mobileMenu.classList.toggle("active");
+
+            if (isActive) {
+                // 如果是打開選單，依序計算延遲，做出「刷刷刷」依序浮現的效果
+                links.forEach((link, index) => {
+                    link.style.transitionDelay = `${0.15 + index * 0.08}s`;
+                });
+            } else {
+                // 如果是關閉選單，立刻收回，不需要延遲
+                links.forEach(link => {
+                    link.style.transitionDelay = "0s";
+                });
+            }
+        });
+
+        links.forEach(link => {
+            link.addEventListener("click", () => {
+                menuToggle.classList.remove("active");
+                mobileMenu.classList.remove("active");
+                links.forEach(l => l.style.transitionDelay = "0s");
+            });
+        });
     }
 
-    document.body.classList.remove("system-loading");
-    boot.innerText = "SYSTEM_READY. ACCESS_GRANTED.";
-    document.getElementById("name").style.opacity = "1";
-    document.getElementById("heroTitle").style.opacity = "1";
-    document.getElementById("exploreBtn").style.opacity = "1";
+    // =========================================
+    // 2. 開機動畫與解鎖機制
+    // =========================================
+    const shouldSkipAnimation = sessionStorage.getItem("skipAnimation");
+    const boot = document.getElementById("bootText");
+    const nameEl = document.getElementById("name");
+    const titleEl = document.getElementById("heroTitle");
+    const btnEl = document.getElementById("exploreBtn");
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    // 進來後立刻把開關關掉
-    sessionStorage.removeItem("skipAnimation"); 
-
-} else {
-    // --------------------------------------------------
-    // 【正常通道】首次進入、按下 F5 重新整理，一律播放動畫！
-    // --------------------------------------------------
-    
-    // 【關鍵修復】只有在要播放動畫時，才強制網頁回歸最頂端！
-    if (history.scrollRestoration) {
-        history.scrollRestoration = 'manual';
-    }
-    window.scrollTo(0, 0);
-
-    const bootInterval = setInterval(() => {
-        let txt = "INITIALIZING MEMORY...";
-        if (Math.random() < 0.3) {
-            let arr = txt.split("");
-            let index = Math.floor(Math.random() * arr.length);
-            arr[index] = chars[Math.floor(Math.random() * chars.length)];
-            txt = arr.join("");
-        }
-        boot.innerText = txt;
-    }, 80);
-
-    // 名字淡入
-    document.getElementById("name").animate(
-        [{ opacity: 0 }, { opacity: 1 }],
-        { duration: 2000, fill: "forwards" }
-    );
-
-    // 副標題跟著淡入
+    // 安全解鎖防禦：若 3 秒內沒解鎖，強制解除 loading 狀態
     setTimeout(() => {
-        document.getElementById("heroTitle").animate(
-            [{ opacity: 0 }, { opacity: 1 }],
-            { duration: 1500, fill: "forwards" }
-        );
-    }, 1000);
-
-    // 按鈕跟著淡入
-    setTimeout(() => {
-        document.getElementById("exploreBtn").animate(
-            [{ opacity: 0 }, { opacity: 1 }],
-            { duration: 1000, fill: "forwards" }
-        );
-    }, 1500);
-
-    // 解鎖網頁
-    setTimeout(() => {
-        clearInterval(bootInterval);
         document.body.classList.remove("system-loading");
-        boot.innerText = "SYSTEM_READY. ACCESS_GRANTED.";
-    }, 2500);
-}
+    }, 3000);
+
+    const unlockSystem = (text) => {
+        document.body.classList.remove("system-loading");
+        if (boot) boot.innerText = text;
+    };
+
+    if (shouldSkipAnimation === "true") {
+        // 【快速通道】從分頁返回，直接跳過動畫
+        if (history.scrollRestoration) history.scrollRestoration = 'auto'; 
+        unlockSystem("SYSTEM_READY. ACCESS_GRANTED.");
+        if (nameEl) nameEl.style.opacity = "1";
+        if (titleEl) titleEl.style.opacity = "1";
+        if (btnEl) btnEl.style.opacity = "1";
+        sessionStorage.removeItem("skipAnimation"); 
+    } else {
+        // 【正常通道】播放開機文字矩陣與淡入動畫
+        if (history.scrollRestoration) history.scrollRestoration = 'manual';
+        window.scrollTo(0, 0);
+
+        if (boot) {
+            const bootInterval = setInterval(() => {
+                let txt = "INITIALIZING MEMORY...";
+                if (Math.random() < 0.3) {
+                    let arr = txt.split("");
+                    let index = Math.floor(Math.random() * arr.length);
+                    arr[index] = chars[Math.floor(Math.random() * chars.length)];
+                    txt = arr.join("");
+                }
+                boot.innerText = txt;
+            }, 80);
+
+            setTimeout(() => {
+                clearInterval(bootInterval);
+                unlockSystem("SYSTEM_READY. ACCESS_GRANTED.");
+            }, 2500);
+        } else {
+            unlockSystem("");
+        }
+
+        // 串接元素的淡入動畫
+        if (nameEl) {
+            nameEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 2000, fill: "forwards" });
+        }
+        setTimeout(() => {
+            if (titleEl) titleEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1500, fill: "forwards" });
+        }, 1000);
+        setTimeout(() => {
+            if (btnEl) btnEl.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 1000, fill: "forwards" });
+        }, 1500);
+    }
+});

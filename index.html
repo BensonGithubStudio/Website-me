@@ -20,17 +20,33 @@
     <canvas id="bg"></canvas>
 
     <!-- 導覽列 -->
-    <nav class="navbar cyber-data-port">
+   <nav class="navbar cyber-data-port">
         <div class="logo">
             <span class="logo-text">BENSON</span>
-            </div>
-        <div class="nav-links">
+        </div>
+        
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        <div class="nav-links desktop-only" id="navLinks">
             <a href="#about" data-no="01"><span>個人檔案</span></a>
             <a href="#projects" data-no="02"><span>開發專案</span></a>
             <a href="#skills" data-no="03"><span>專業技能</span></a>
             <a href="#contact" data-no="04"><span>聯絡我</span></a>
         </div>
     </nav>
+
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <div class="mobile-links">
+            <a href="#about"><span class="num">01//</span> 個人檔案</a>
+            <a href="#projects"><span class="num">02//</span> 開發專案</a>
+            <a href="#skills"><span class="num">03//</span> 專業技能</a>
+            <a href="#contact"><span class="num">04//</span> 聯絡我</a>
+        </div>
+    </div>
 
     <!-- Hero 首頁區塊 -->
     <header class="hero">

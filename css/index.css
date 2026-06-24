@@ -1,39 +1,31 @@
 /* =========================================
-   滾動條
+   滾動條與全域選取風格
    ========================================= */
-
 ::-webkit-scrollbar {
-    width: 6px;               /* 讓滾動條變得極細，不破壞整體畫面美感 */
-    background: #050505;      /* 軌道背景色，與你的網頁純黑背景融為一體 */
+    width: 6px;
+    background: #050505;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 255, 255, 0.3); /* 初始狀態為半透明的青色，低調精緻 */
-    border-radius: 10px;               /* 邊角圓潤化 */
-    box-shadow: 0 0 8px rgba(0, 255, 255, 0.4); /* 帶有微弱的發光特效 */
-    transition: background 0.3s ease;  /* 讓顏色轉變更絲滑 */
+    background: rgba(0, 255, 255, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+    transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover,
 ::-webkit-scrollbar-thumb:active {
-    background: #00ffff;               /* 亮青色全開，充能效果 */
-    box-shadow: 
-        0 0 12px #006868,
-        0 0 20px #006868;              /* 增強霓虹發光矩陣，視覺張力拉滿 */
+    background: #00ffff;
+    box-shadow: 0 0 12px #006868, 0 0 20px #006868;
 }
 
 ::-webkit-scrollbar-track {
     background: #050505;
 }
 
-/* =========================================
-   選取風格 (Selection)
-   ========================================= */
-
-/* 電腦版現代瀏覽器（Chrome, Edge, Safari, Opera） */
 ::selection {
-    background-color: #00bdbd; /* 賽博霓虹青色 (Cyber Cyan) */
-    color: #050505;            /* 文字變成深黑色 */
+    background-color: #00bdbd;
+    color: #050505;
     text-shadow: none;
 }
 
@@ -44,7 +36,7 @@
 }
 
 /* 基礎重設與變數 */
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -60,14 +52,13 @@ body {
 }
 
 body.system-loading {
-    overflow: hidden !important;       /* 完全禁止視窗上下滾動 */
-    pointer-events: none !important;   /* 阻斷所有點擊、選取、 hovered 效果 */
-    cursor: wait !important;           /* 滑鼠指針變成等待狀態（選用） */
+    overflow: hidden;
+    pointer-events: none;
+    cursor: wait;
 }
 
-/* 額外優化：讓初始化的提示字，在解鎖時變成綠色或維持亮藍色，更有成功解鎖的儀式感 */
 body:not(.system-loading) #bootText {
-    color: #39ff14; /* 變成綠色（可不加，依你喜好） */
+    color: #39ff14;
     text-shadow: 0 0 10px #39ff14;
 }
 
@@ -81,35 +72,49 @@ body:not(.system-loading) #bootText {
     pointer-events: none;
 }
 
-/* 導覽列 */
+/* =========================================
+   導覽列 (桌機預設)
+   ========================================= */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 26px;
+    height: 18px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 9999;
+    position: relative;
+}
+
+.menu-toggle .bar {
+    width: 100%;
+    height: 2px;
+    background-color: #00ffff;
+    box-shadow: 0 0 8px #00ffff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .navbar {
     position: fixed;
-    top: 20px;          /* 懸浮於頂部 20px，不撐滿 */
+    top: 20px;
     left: 50%;
-    transform: translateX(-50%); /* 居中 */
-    width: calc(100% - 100px);   /* 寬度稍微收縮 */
+    transform: translateX(-50%);
+    width: calc(100% - 100px);
     max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 12px 40px;
     z-index: 100;
-    
-    /* 深黑色背景 + 強烈高斯模糊 */
     background: rgba(51, 51, 51, 0.5);
     backdrop-filter: blur(10px);
-    
-    /* 核心活潑幾何：斜切角外框 */
     clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);
-    
-    /* 青色環境光外框 */
     border: 1px solid rgba(0, 255, 255, 0.2);
-    box-shadow: 
-        0 4px 15px rgba(0, 0, 0, 0.6),
-        0 0 30px rgba(0, 255, 255, 0.1); /* 微弱霓虹底光 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 255, 0.1);
 }
 
-/* 導覽列港口的霓虹霓虹環境光點綴偽元素 */
 .navbar::after {
     content: '';
     position: absolute;
@@ -121,15 +126,12 @@ body:not(.system-loading) #bootText {
     box-shadow: 0 0 10px #00ffff;
 }
 
-
-/* 2. Logo：發光處理器晶片 */
 .navbar .logo {
     display: flex;
     align-items: center;
     gap: 8px;
     position: relative;
     padding: 5px 10px;
-    border: 1px solid transparent;
 }
 
 .navbar .logo-text {
@@ -138,10 +140,8 @@ body:not(.system-loading) #bootText {
     font-size: 1.3rem;
     letter-spacing: 3px;
     text-shadow: 0 0 10px #00ffff, 0 0 20px rgba(0, 255, 255, 0.5);
-    font-family: 'Courier New', Courier, monospace; /* 數字感更強 */
 }
 
-/* Logo 偽元素：模擬電子故障發光矩陣 */
 .navbar .logo::before {
     content: '0101';
     position: absolute;
@@ -150,21 +150,17 @@ body:not(.system-loading) #bootText {
     font-size: 0.6rem;
     color: rgba(0, 255, 255, 0.4);
     opacity: 0.6;
-    font-family: monospace;
     animation: cyber-digits-scan 2s steps(2) infinite;
 }
 
 @keyframes cyber-digits-scan {
-    0% { content: '1010'; }
+    0%, 100% { content: '1010'; }
     50% { content: '0101'; }
-    100% { content: '1010'; }
 }
 
-
-/* 3. 連結：活潑的數據顯示器效果 */
 .navbar .nav-links {
     display: flex;
-    gap: 15px; /* 縮小間距，讓幾何港口更緊湊 */
+    gap: 15px;
 }
 
 .navbar .nav-links a {
@@ -177,28 +173,23 @@ body:not(.system-loading) #bootText {
     display: flex;
     align-items: center;
     transition: color 0.3s ease;
-    
-    /* 幾何連結外框 */
     clip-path: polygon(10% 0, 100% 0, 90% 100%, 0% 100%);
 }
 
-/* 連結內部：在文字上方加上數據編號 */
 .navbar .nav-links a::before {
-    content: attr(data-no);  /* 從 data-no 屬性讀取編號 */
+    content: attr(data-no);
     position: absolute;
     top: 1px;
     left: 8px;
     font-size: 0.65rem;
     color: rgba(0, 255, 255, 0.4);
-    font-family: monospace;
     transition: 0.3s ease;
 }
 
 .navbar .nav-links a span {
-    margin-top: 10px; /* 為上方的編號騰出空間 */
+    margin-top: 10px;
 }
 
-/* 你的原版特效：底部展開光軌 (維持不變，完美融合) */
 .navbar .nav-links a::after {
     content: "";
     position: absolute;
@@ -211,33 +202,35 @@ body:not(.system-loading) #bootText {
     transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), left 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Hover 觸發活潑連鎖反應 */
 .navbar .nav-links a:hover {
     color: #00ffff;
-    background: rgba(0, 255, 255, 0.05); /* 輕微的港口通電背景色 */
-    clip-path: polygon(0% 0, 90% 0, 100% 100%, 10% 100%); /* 反向斜切，更有動感 */
+    background: rgba(0, 255, 255, 0.05);
+    clip-path: polygon(0% 0, 90% 0, 100% 100%, 10% 100%);
 }
 
-/* Hover 時編號文字變成霓虹青色，並閃爍 */
 .navbar .nav-links a:hover::before {
     color: #00ffff;
     text-shadow: 0 0 5px #00ffff;
     animation: cyber-digits-spin 0.2s steps(2) infinite alternate;
 }
 
-/* 原版光軌展開動畫：維持 */
 .navbar .nav-links a:hover::after {
     width: 100%;
     left: 0;
 }
 
-/* 數字滾動動畫 */
 @keyframes cyber-digits-spin {
     0% { transform: scaleY(1); opacity: 1; }
     100% { transform: scaleY(0); opacity: 0.6; }
 }
 
-/* Hero 首頁區塊 */
+.mobile-menu-overlay {
+    display: none;
+}
+
+/* =========================================
+   Hero 首頁區塊
+   ========================================= */
 .hero {
     height: 100vh;
     display: flex;
@@ -256,13 +249,9 @@ body:not(.system-loading) #bootText {
 }
 
 #name {
-    /* 使用 clamp 讓字體在大螢幕最大 7rem，手機螢幕自動縮小，絕不爆版 */
     font-size: clamp(3rem, 10vw, 7rem);
     opacity: 0;
-    text-shadow:
-    0 0 10px #00ffff,
-    0 0 30px #00ffff,
-    0 0 60px #00ffff;
+    text-shadow: 0 0 10px #00ffff, 0 0 30px #00ffff, 0 0 60px #00ffff;
 }
 
 #heroTitle {
@@ -290,14 +279,15 @@ body:not(.system-loading) #bootText {
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
 }
 
-/* 主要內容容器 */
+/* =========================================
+   主體內容排版 (Container, Section)
+   ========================================= */
 .container {
     max-width: 1050px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* 區塊通用樣式 */
 .section {
     padding: 100px 0;
     min-height: 90vh;
@@ -326,7 +316,7 @@ body:not(.system-loading) #bootText {
 }
 
 /* =========================================
-   【個人檔案版面】照片與經歷區塊
+   關於我與經歷 (Profile & Timeline)
    ========================================= */
 .profile-grid {
     display: grid;
@@ -335,56 +325,44 @@ body:not(.system-loading) #bootText {
     align-items: start;
 }
 
-.profile-photo-wrapper {
-    width: 100%;
-}
-
 .profile-photo-frame {
     position: relative;
     width: 100%;
     aspect-ratio: 4 / 5;
     border: 1px solid #00ffff;
-    
-    /* 【關鍵修改 1】拔掉原本的 padding: 10px，防止內邊距把圖片推歪 */
-    padding: 0; 
-    
     background: rgba(0, 255, 255, 0.02);
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
     overflow: hidden;
-    
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.profile-photo-frame::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 15px; height: 15px;
-    border-top: 3px solid #00ffff; border-left: 3px solid #00ffff;
-    z-index: 5; /* 確保邊角蓋在圖片上方 */
-}
-
+.profile-photo-frame::before,
 .profile-photo-frame::after {
     content: '';
     position: absolute;
-    bottom: 0; right: 0; width: 15px; height: 15px;
+    width: 15px;
+    height: 15px;
+    z-index: 5;
+}
+
+.profile-photo-frame::before {
+    top: 0; left: 0;
+    border-top: 3px solid #00ffff; border-left: 3px solid #00ffff;
+}
+
+.profile-photo-frame::after {
+    bottom: 0; right: 0;
     border-bottom: 3px solid #00ffff; border-right: 3px solid #00ffff;
-    z-index: 5; /* 確保邊角蓋在圖片上方 */
 }
 
 .profile-img {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    width: calc(100% - 20px);  /* 扣除左右各 10px 的空間 */
-    height: calc(100% - 20px); /* 扣除上下各 10px 的空間 */
-    
+    top: 10px; left: 10px;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
     object-fit: cover;
-    object-position: center; /* 強迫瀏覽器以正中央為軸心向外縮放裁剪 */
-    
-    filter: none;
-    opacity: 1;
     border: 1px solid rgba(0, 255, 255, 0.2);
     z-index: 1;
 }
@@ -396,7 +374,7 @@ body:not(.system-loading) #bootText {
     opacity: 0.6;
     animation: scan 4s linear infinite;
     pointer-events: none;
-    z-index: 3; /* 確保掃描線能在照片上方跑動 */
+    z-index: 3;
 }
 
 @keyframes scan {
@@ -406,8 +384,7 @@ body:not(.system-loading) #bootText {
 
 .frame-glitch-text {
     position: absolute;
-    bottom: 15px;
-    left: 20px;
+    bottom: 15px; left: 20px;
     font-size: 0.75rem;
     color: #00ffff;
     letter-spacing: 2px;
@@ -437,13 +414,6 @@ body:not(.system-loading) #bootText {
     font-size: 0.95rem;
 }
 
-/* =========================================
-   工作/學經歷時間軸
-   ========================================= */
-.experience-timeline {
-    margin-top: 20px;
-}
-
 .timeline-item {
     position: relative;
     padding-left: 30px;
@@ -455,10 +425,8 @@ body:not(.system-loading) #bootText {
 .timeline-item::before {
     content: '';
     position: absolute;
-    left: -5px;
-    top: 5px;
-    width: 9px;
-    height: 9px;
+    left: -5px; top: 5px;
+    width: 9px; height: 9px;
     background: #00ffff;
     border-radius: 50%;
     box-shadow: 0 0 8px #00ffff;
@@ -492,7 +460,79 @@ body:not(.system-loading) #bootText {
 }
 
 /* =========================================
-   【專長展示版面】能量進度條
+   開發專案區塊 (Projects Grid)
+   ========================================= */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.project-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+}
+
+.project-card:hover {
+    border-color: #00ffff;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.15);
+}
+
+.project-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.p-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.9) contrast(110%);
+    transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.project-card:hover .p-media {
+    transform: scale(1.06);
+    filter: brightness(1.1) contrast(115%);
+}
+
+.project-info {
+    padding: 25px;
+    flex-grow: 1;
+}
+
+.project-info h3 {
+    color: #fff;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+}
+
+.project-info p {
+    color: #aaa;
+    font-size: 0.9rem;
+    text-align: justify;
+    margin-bottom: 20px;
+    letter-spacing: 0.9px;
+    line-height: 1.7;
+}
+
+/* =========================================
+   專業技能區塊 (Skills Showcase)
    ========================================= */
 .skills-showcase {
     display: grid;
@@ -532,9 +572,9 @@ body:not(.system-loading) #bootText {
 
 .skill-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, rgba(0, 255, 255, 0.6), #00ffff); /* 青色漸層霓虹 */
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.6), #00ffff);
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-    width: 0%; 
+    width: 0%;
     transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -566,113 +606,8 @@ body:not(.system-loading) #bootText {
 }
 
 /* =========================================
-   作品集與其他通用區塊
+   通用按鈕、通訊面板、頁尾
    ========================================= */
-.panel {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(0, 255, 255, 0.2);
-    padding: 40px;
-    border-radius: 4px;
-    line-height: 1.8;
-    color: #ccc;
-}
-
-.panel p { margin-bottom: 15px; }
-
-/* =========================================
-   專案區
-   ========================================= */
-
-.projects-grid {
-    display: grid;
-    /* RWD 自動網格排列 */
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.project-card {
-    background: rgba(255, 255, 255, 0.02); /* 稍微提升一點點亮度，黑客質感更好 */
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    overflow: hidden; /* 確保圖片放大時不會超出卡片邊框 */
-    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* 【關鍵修正 1】改為 Flex 垂直佈局，強迫圖片區與文字區絕對分流，永不重疊 */
-    display: flex;
-    flex-direction: column;
-
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-    outline: none;
-}
-
-.project-card:hover {
-    border-color: #00ffff;
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 255, 255, 0.15);
-}
-
-.project-card,
-.project-card * {
-    text-decoration: none !important;
-    text-decoration-line: none !important;
-}
-
-.project-img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    background: #111;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #444;
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    
-    /* 【關鍵修正 2】確保容器本身不會被裡面的巨大圖片塞變形 */
-    position: relative;
-    overflow: hidden; 
-    flex-shrink: 0; /* 防止卡片被內容壓縮時，圖片高度被擠扁 */
-}
-
-.p-media {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* 確保影片不管原比例是 16:9 還是 4:3，都能自動裁切並完美填滿正方形，絕不變形拉伸 */
-    object-position: center; /* 影片居中對齊 */
-    
-    /* 賽博朋克暗色調微濾鏡 */
-    filter: grayscale(0%) brightness(0.9) contrast(110%);
-    transition: transform 0.5s ease, filter 0.5s ease;
-}
-
-.project-card:hover .p-media {
-    transform: scale(1.06);
-    filter: grayscale(0%) brightness(1.1) contrast(115%);
-}
-
-.project-info { 
-    padding: 25px; 
-    /* 讓文字區自動填滿剩餘空間，排版更整齊 */
-    flex-grow: 1; 
-}
-
-.project-info h3 { 
-    color: #fff; 
-    margin-bottom: 20px; 
-    font-size: 1.3rem; 
-}
-
-.project-info p { 
-    color: #aaa; 
-    font-size: 0.9rem; 
-    text-align: justify;
-    margin-bottom: 20px; 
-    letter-spacing: 0.9px;
-    line-height: 1.7; 
-}
-
 .tag {
     display: inline-block;
     font-size: 0.75rem;
@@ -703,19 +638,27 @@ body:not(.system-loading) #bootText {
     box-shadow: 0 0 15px #00ffff;
 }
 
-/* 電腦版預設：將按鈕放置在 section 的右下角 */
+.panel {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+    padding: 40px;
+    border-radius: 4px;
+    line-height: 1.8;
+    color: #ccc;
+}
+
+.panel p { margin-bottom: 15px; }
+
 #about {
     display: flex;
     flex-direction: column;
-    align-items: stretch; /* 恢復預設：讓內元件（如網格）自然撐滿 */
+    align-items: stretch;
 }
 
-/* 2. 按鈕專屬外殼：利用 margin-left: auto 單獨將自己推向最右側！ */
 .cyber-btn-more {
-    display: inline-flex;  
+    display: inline-flex;
     margin-top: 40px;
-    margin-left: auto;     /* 關鍵：神奇的魔法！自動把左邊塞滿，將自己推到最右邊 */
-    text-decoration: none !important;
+    margin-left: auto;
 }
 
 .cyber-btn-more .cyber-btn {
@@ -735,150 +678,163 @@ body:not(.system-loading) #bootText {
     border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
+/* ==========================================================================
+   【RWD 響應式佈局】優化精簡版（移除沒必要的重複覆蓋與 !important）
+   ========================================================================== */
 
-/* =========================================
-   【新 RWD 響應式佈局深度優化】
-   ========================================= */
-
-/* 1. 平板與小桌機佈局 (1024px 以下) */
 @media (max-width: 1024px) {
-    .navbar {
-        padding: 20px 30px;
-    }
-    .profile-grid {
-        grid-template-columns: 280px 1fr;
-        gap: 35px;
-    }
+    .navbar { padding: 20px 30px; }
+    .profile-grid { grid-template-columns: 280px 1fr; gap: 35px; }
 }
 
-/* 2. 大行動裝置與中平板佈局 (900px 以下) */
 @media (max-width: 900px) {
-    .section {
-        padding: 60px 0; /* 縮小過大的上下間距，提升滑動體驗 */
-    }
-    .profile-grid {
-        grid-template-columns: 1fr; /* 轉為單欄 */
-        gap: 40px;
-    }
-    .profile-photo-frame {
-        max-width: 300px; /* 相片在手機上置中放大 */
-        margin: 0 auto;
-    }
-    .skills-showcase {
-        grid-template-columns: 1fr; /* 技能區轉為單欄 */
-        gap: 30px;
-    }
-
-    .cyber-btn-more {
-        margin-left: auto;  /* 這兩行結合，能在 Flex 佈局中實現完美的水平置中 */
-        margin-right: auto; 
-        margin-top: 30px;
-    }
+    .section { padding: 60px 0; }
+    .profile-grid { grid-template-columns: 1fr; gap: 40px; }
+    .profile-photo-frame { max-width: 300px; margin: 0 auto; }
+    .skills-showcase { grid-template-columns: 1fr; gap: 30px; }
+    .cyber-btn-more { margin-left: auto; margin-right: auto; margin-top: 30px; }
 }
 
-/* 3. 標準智慧型手機佈局 (768px 以下) */
 @media (max-width: 768px) {
+    .menu-toggle { display: flex; }
+    
     .navbar {
-        padding: 15px 20px;
-    }
-    .navbar .nav-links {
-        display: none; /* 行動版隱藏桌面選單，後續可自行擴充漢堡選單 */
-    }
-    .panel {
-        padding: 30px 20px; /* 縮減內距，把寬度留給內容 */
-    }
-    .skill-bars-container {
-        padding: 20px;
+        width: calc(100% - 30px);
+        top: 15px;
+        padding: 10px 20px;
+        clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%);
     }
 
-    /* 將網格改為單欄，並縮小元件間距 */
-    .profile-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
+    .navbar .desktop-only { display: none; }
+
+    .mobile-menu-overlay {
+        position: fixed;
+        top: 0; right: 0;
+        width: 100vw; height: 100vh;
+        background: rgba(5, 5, 5, 0.3);
+    
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        z-index: 9998;
+        
+        transform: translateX(100%);
+        clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    clip-path 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-left: 2px solid #00ffff;
     }
 
-    /* 照片區塊優化：限制手機上的最大寬度，並置中顯示 */
-    .profile-photo-wrapper {
-        max-width: 240px; /* 從 320px 縮小到 240px，省下垂直空間 */
-        margin: 0 auto;   /* 置中 */
+    .mobile-menu-overlay.active {
+        transform: translateX(0);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 15% 100%);
+        box-shadow: -10px 0 30px rgba(0, 255, 255, 0.15);
     }
 
-    .profile-photo-frame {
-        aspect-ratio: 1 / 1; /* 手機版改為完美正方形，更像科技頭像 */
+    .mobile-links {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        width: 75%;
+        text-align: right;
+        padding-right: 10%;
     }
 
-    /* 消滅手機版巨大的空白黑洞 */
-    .profile-info-panel .bio-intro h3 {
-        text-align: center; /* 名字置中 */
-        font-size: 1.5rem;
+    .mobile-links a {
+        color: #ffffff;
+        font-size: 1.6rem;
+        font-weight: bold;
+        text-decoration: none;
+        letter-spacing: 3px;
+        padding: 12px 0;
+        border-bottom: 1px dashed rgba(0, 255, 255, 0.1);
+        display: block;
+        position: relative;
+        
+        opacity: 0;
+        transform: translateY(20px);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                    opacity 0.4s ease, 
+                    color 0.2s ease;
     }
 
-    .profile-info-panel .bio-intro p.cyber-tagline {
-        text-align: center; /* 格言置中 */
-        font-size: 0.85rem;
+    .mobile-menu-overlay.active .mobile-links a {
+        opacity: 1;
+        transform: translateY(0);
     }
 
+    .mobile-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -1px; right: 0;
+        width: 0; height: 1px;
+        background: #00ffff;
+        box-shadow: 0 0 10px #00ffff;
+        transition: width 0.3s ease;
+    }
+
+    .mobile-links a:hover::after,
+    .mobile-links a:active::after {
+        width: 100%;
+    }
+
+    .mobile-links a .num {
+        color: #00ffff;
+        font-family: monospace;
+        font-size: 1rem;
+        margin-right: 15px;
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    }
+
+    .mobile-links a:hover, .mobile-links a:active {
+        color: #00ffff;
+        text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+        border-bottom: 1px solid #00ffff;
+    }
+
+    /* 漢堡鈕點擊變紅 X */
+    .menu-toggle.active .bar:nth-child(1) { transform: translateY(8px) rotate(45deg); background-color: #ff0055; box-shadow: 0 0 8px #ff0055; }
+    .menu-toggle.active .bar:nth-child(2) { opacity: 0; }
+    .menu-toggle.active .bar:nth-child(3) { transform: translateY(-8px) rotate(-45deg); background-color: #ff0055; box-shadow: 0 0 8px #ff0055; }
+
+    /* 區塊內容針對手機之微調 */
+    .panel { padding: 30px 20px; }
+    .skill-bars-container { padding: 20px; }
+    .profile-photo-wrapper { max-width: 240px; margin: 0 auto; }
+    .profile-photo-frame { aspect-ratio: 1 / 1; }
+    .profile-info-panel .bio-intro h3,
+    .profile-info-panel .bio-intro p.cyber-tagline { text-align: center; }
+    .profile-info-panel .bio-intro h3 { font-size: 1.5rem; }
+    .profile-info-panel .bio-intro p.cyber-tagline { font-size: 0.85rem; }
+    
     .profile-info-panel .bio-intro p {
-        margin-top: 20px;    /* 從 50px 縮減到 20px */
-        margin-bottom: 30px; /* 從 70px 縮減到 30px */
+        margin-top: 20px;
+        margin-bottom: 30px;
         font-size: 0.9rem;
         text-align: justify;
     }
-
-    /* 時間軸重構：改為手機特化排版 */
+    
     .timeline-item {
-        padding-left: 20px;   /* 縮減左側留白 */
+        padding-left: 20px;
         padding-bottom: 20px;
         margin-bottom: 10px;
         display: flex;
-        flex-direction: column; /* 強制時間標籤自成一行，排在標題上方 */
+        flex-direction: column;
     }
-
-    .timeline-item::before {
-        top: 6px; /* 微調發光小圓點的位置 */
-    }
-
-    .timeline-date {
-        display: inline-block;
-        margin-bottom: 4px;   /* 讓日期在標題上面貼近 */
-        font-size: 0.75rem;
-    }
-
-    .timeline-content h5 {
-        font-size: 1rem;      /* 稍微縮小標題字體，防止手機上溢出 */
-        line-height: 1.4;
-    }
-
-    .timeline-content p {
-        font-size: 0.85rem;   /* 稍微精簡內文字級 */
-        margin-top: 4px;
-    }
+    .timeline-item::before { top: 6px; }
+    .timeline-date { display: inline-block; margin-bottom: 4px; font-size: 0.75rem; }
+    .timeline-content h5 { font-size: 1rem; line-height: 1.4; }
+    .timeline-content p { font-size: 0.85rem; margin-top: 4px; }
 }
 
-/* 4. 超小手機螢幕特化優化 (480px 以下) */
 @media (max-width: 480px) {
-    .container {
-        padding: 0 15px; /* 邊緣微縮 */
-    }
-    .section {
-        padding: 45px 0;
-    }
-    .profile-info-panel .bio-intro h3 {
-        font-size: 1.4rem; /* 縮小姓名 */
-    }
-    .timeline-item {
-        padding-left: 20px; /* 縮減時間軸左側留白 */
-        margin-bottom: 20px;
-    }
-    .skill-group-card {
-        padding: 20px 15px;
-    }
-    .project-info {
-        padding: 20px 15px;
-    }
-    .cyber-btn-more .cyber-btn {
-        width: auto !important; /* 確保不吃舊設定的 100% 滿版 */
-        padding: 12px 24px !important;
-        font-size: 0.85rem;
-    }
+    .container { padding: 0 15px; }
+    .section { padding: 45px 0; }
+    .profile-info-panel .bio-intro h3 { font-size: 1.4rem; }
+    .timeline-item { padding-left: 20px; margin-bottom: 20px; }
+    .skill-group-card, .project-info { padding: 20px 15px; }
+    .cyber-btn-more .cyber-btn { width: auto; padding: 12px 24px; font-size: 0.85rem; }
 }
